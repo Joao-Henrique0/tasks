@@ -17,17 +17,30 @@ class TasksPage extends StatelessWidget {
                 ? const Center(child: CircularProgressIndicator())
                 : Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Consumer<TaskList>(
-                      builder: (ctx, taskList, _) => ListView.builder(
-                        itemCount: taskList.itensCount,
-                        itemBuilder: (ctx, i) => Column(
-                          children: [
-                            TaskItem(task: taskList.tasks[i]),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                    child: Consumer<TaskList>(builder: (ctx, taskList, _) {
+                      return taskList.itensCount == 0
+                          ? const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('Nenhuma tarefa cadastrada'),
+                                SizedBox(height: 20),
+                                SizedBox(
+                                    width: double.infinity,
+                                    child: Icon(
+                                      Icons.content_paste_off,
+                                      size: 78,
+                                    ))
+                              ],
+                            )
+                          : ListView.builder(
+                              itemCount: taskList.itensCount,
+                              itemBuilder: (ctx, i) => Column(
+                                children: [
+                                  TaskItem(task: taskList.tasks[i]),
+                                ],
+                              ),
+                            );
+                    })),
       ),
     );
   }
