@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color corP =  Color.fromRGBO(13, 71, 161, 1);
+const Color corP = Color.fromRGBO(13, 71, 161, 1);
 
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
@@ -30,7 +30,7 @@ ThemeData lightMode = ThemeData(
   textTheme: const TextTheme(
     bodyLarge: TextStyle(
       color: Colors.black87,
-      fontSize: 16,
+      fontSize: 14,
     ),
     bodyMedium: TextStyle(
       color: Colors.black54,
@@ -78,7 +78,7 @@ ThemeData darkMode = ThemeData(
   textTheme: const TextTheme(
     bodyLarge: TextStyle(
       color: Colors.white70,
-      fontSize: 16,
+      fontSize: 14,
     ),
     bodyMedium: TextStyle(
       color: Colors.white54,

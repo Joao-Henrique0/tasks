@@ -65,7 +65,10 @@ class ExpensesPage extends StatelessWidget {
                                 SizedBox(
                                   height: 30,
                                   child: Text(
-                                      'Total gasto na semana R\$${NumTranform.formatValue(transactionList.weekTotalValue(7))} e no mês R\$${NumTranform.formatValue(transactionList.weekTotalValue(31))}'),
+                                    'Total gasto na semana R\$${NumTranform.formatValue(transactionList.weekTotalValue(7))} e no mês R\$${NumTranform.formatValue(transactionList.weekTotalValue(31))}',
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge,
+                                  ),
                                 )
                               ],
                             );
