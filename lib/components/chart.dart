@@ -6,8 +6,8 @@ import 'package:intl/intl.dart';
 class Chart extends StatelessWidget {
   const Chart({super.key, required this.recentsTransactions});
   final List<Transaction> recentsTransactions;
-
   List<Map<String, Object>> get groupedTransactions {
+    Intl.defaultLocale = 'pt_BR';
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(Duration(days: index));
 
@@ -21,7 +21,10 @@ class Chart extends StatelessWidget {
         }
       }
 
-      return {'day': DateFormat.E().format(weekDay)[0], 'value': totalSum};
+      return {
+        'day': DateFormat.E().format(weekDay)[0].toUpperCase(),
+        'value': totalSum
+      };
     }).reversed.toList();
   }
 
