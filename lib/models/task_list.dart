@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:tarefas/models/local_notification_service.dart';
 import 'package:tarefas/utils/db_util.dart';
 import 'task.dart';
 
@@ -39,7 +40,9 @@ class TaskList with ChangeNotifier {
   Future<void> saveTask(Map<String, Object> data) async {
     bool hasId = data['id'] != null;
     final task = Task(
-      id: hasId ? data['id'] as String : Random().nextDouble().toString(),
+      id: hasId
+          ? data['id'] as String
+          : Random().nextInt(420000000).toString(),
       title: data['title'] as String,
       description: data['description'] as String,
       time: data['time'] as DateTime,
@@ -47,13 +50,15 @@ class TaskList with ChangeNotifier {
     );
 
     if (hasId) {
-      updateTask(task);
+      await updateTask(task);
     } else {
       await addTask(task);
     }
+    LocalNotificationService.showScheduledNotification(
+        task.title, task.description, task.time, task.id);
   }
 
-  void updateTask(Task task) async {
+  Future<void> updateTask(Task task) async {
     int index = _tasks.indexWhere((t) => t.id == task.id);
     if (index >= 0) {
       _tasks[index] = task;
@@ -87,6 +92,7 @@ class TaskList with ChangeNotifier {
       notifyListeners();
       await DbUtil.deleteData('tasks', task.id);
     }
+    LocalNotificationService.cancelNotification(int.parse(task.id));
   }
 
   Future<void> updateTaskComplete(String taskId, bool complete) async {
